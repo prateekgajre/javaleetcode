@@ -1,0 +1,68 @@
+4Sum
+Medium
+
+1053
+
+215
+
+Favorite
+
+Share
+Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
+
+Note:
+
+The solution set must not contain duplicate quadruplets.
+
+Example:
+
+Given array nums = [1, 0, -1, 0, -2, 2], and target = 0.
+
+A solution set is:
+[
+  [-1,  0, 0, 1],
+  [-2, -1, 1, 2],
+  [-2,  0, 0, 2]
+]
+
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> op = new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+        if(nums.length == 0 || nums==null)
+            return op;
+        for(int i =0; i<nums.length;i++)
+        {
+            if(i!=0 || (i>0 && nums[i]==nums[i-1]))
+                continue;
+            for(int j=i+1;j<nums.length-2;j++)
+            {
+                if(j!=0 || (j>0 && nums[j-1]==nums[j]))
+                   continue;
+                   int k = j+1;
+                   int l = nums.length-1;
+                while(k<l)
+                {
+                   if(nums[i]+nums[j]+nums[k]+nums[l]>target)
+                   l--;
+                   if(nums[i]+nums[j]+nums[k]+nums[l]<target)
+                   k++;
+                   else
+                   {
+                       List<Integer> res = new ArrayList<Integer>();
+                       res.add(nums[i]);
+                       res.add(nums[j]);
+                       res.add(nums[k]);
+                       res.add(nums[l]);
+                       op.add(res);
+                       k++;
+                       l--;
+                   }
+                   if(nums[k]==nums[k-1])
+                   while(k<l && (nums[k]==nums[k-1])) k++;
+                   while(k<l && (nums[l]==nums[l-1])) l--;
+            }}
+        }
+        return op;
+    }
+}
